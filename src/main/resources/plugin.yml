@@ -1,0 +1,31 @@
+name: Panadero
+version: '${project.version}'
+main: dev.jairusu.panadero.Panadero
+api-version: '1.20'
+authors: [Jairusu]
+description: Minecraft plugin exclusively made for PandesalSMP server.
+
+commands:
+  afk:
+    description: afk
+  panadero:
+    description: panadero
+  setlocation:
+    description: setlocation
+    permission: op
+  reply:
+    description: reply
+    aliases:
+      - rep
+      - r
+  spawn:
+    description: spawn
+    aliases:
+      - hub
+      - lobby
+  whisper:
+    description: whisper
+    aliases:
+      - tell
+      - msg
+      - w

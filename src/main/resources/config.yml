@@ -1,0 +1,38 @@
+
+config:
+  afkTimeout: 300
+  lobbyWorld: spawn
+  voidYLevel: -64
+  launchpadPower: 2.0
+  launchpadHeight: 0.5
+
+message:
+  senderMessage: '<gray>You whisper to %target%: %message%'
+  targetMessage: '<gray>%sender% whispers to you: %message%'
+  joinMessage: '<yellow>%player% joined the game'
+  quitMessage: '<yellow>%player% left the game'
+
+location:
+  authLocation: location
+  spawnLocation: location
+  survivalLocation: location
+  creativeLocation: location
+  pvpArenaLocation: location
+
+advancements:
+  allowed:
+    - world
+    - world_nether
+    - world_the_end
+
+worldGroups:
+  group1:
+    - world
+    - world_nether
+    - world_the_end
+  group2:
+    - spawn
+  group3:
+    - creative
+  group4:
+    - pvp_arena
