@@ -3,7 +3,8 @@ package dev.jairusu.panadero;
 import dev.jairusu.panadero.Commands.*;
 import dev.jairusu.panadero.Events.*;
 import dev.jairusu.panadero.Methods.AFKManager;
-import dev.jairusu.panadero.Methods.Utilities;
+import dev.jairusu.panadero.Methods.InventoryGUI;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -19,8 +20,9 @@ public final class Panadero extends JavaPlugin {
         saveDefaultConfig();
         registerEvents();
         registerCommands();
-        Utilities.makeInventory();
+        InventoryGUI.makeInventory();
         AFKManager.checkPlayerStatus();
+        WorldGroups.setDefaults();
     }
 
     @Override

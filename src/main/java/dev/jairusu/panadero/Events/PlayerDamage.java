@@ -1,6 +1,6 @@
 package dev.jairusu.panadero.Events;
 
-import dev.jairusu.panadero.Methods.Utilities;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +12,7 @@ public class PlayerDamage implements Listener {
    public void onPlayerDamage(EntityDamageEvent event) {
       if (!(event.getEntity() instanceof Player)) return;
       Player player = (Player) event.getEntity();
-      if (!player.getWorld().equals(Utilities.lobbyWorld())) return;
+      if (!player.getWorld().equals(WorldGroups.lobbyWorld())) return;
       event.setCancelled(true);
    }
 

@@ -1,6 +1,6 @@
 package dev.jairusu.panadero.Events;
 
-import dev.jairusu.panadero.Methods.Utilities;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -17,9 +17,8 @@ public class PlayerDeath implements Listener {
       World playerWorld = player.getWorld();
       Component deathMessage = event.deathMessage();
       if (deathMessage == null) return;
-      event.deathMessage(null);
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-         if (!Utilities.worldGroups(playerWorld).contains(onlinePlayer.getWorld().getName())) continue;
+         if (!WorldGroups.worldGroups(playerWorld).contains(onlinePlayer.getWorld().getName())) continue;
          onlinePlayer.sendMessage(deathMessage);
       }
    }

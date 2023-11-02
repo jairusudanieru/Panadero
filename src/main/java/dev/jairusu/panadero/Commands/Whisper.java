@@ -2,7 +2,7 @@ package dev.jairusu.panadero.Commands;
 
 import dev.jairusu.panadero.Methods.Configuration;
 import dev.jairusu.panadero.Methods.MSGManager;
-import dev.jairusu.panadero.Methods.Utilities;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class Whisper implements TabCompleter, CommandExecutor {
       List<String> players = new ArrayList<>();
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          World onlinePlayerWorld = onlinePlayer.getWorld();
-         if (!Utilities.worldGroups(player.getWorld()).contains(onlinePlayerWorld.getName())) continue;
+         if (!WorldGroups.worldGroups(player.getWorld()).contains(onlinePlayerWorld.getName())) continue;
          players.add(onlinePlayer.getName());
       }
       return players;

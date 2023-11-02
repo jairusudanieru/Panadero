@@ -1,6 +1,7 @@
 package dev.jairusu.panadero.Methods;
 
 import dev.jairusu.panadero.Panadero;
+import fr.xephi.authme.api.v3.AuthMeApi;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -8,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -54,6 +56,10 @@ public class Configuration {
    public static void setLocation(String key, Location location) {
       plugin.getConfig().set(key, location);
       plugin.saveConfig();
+   }
+
+   public static boolean isAuthenticated(Player player) {
+      return AuthMeApi.getInstance().isAuthenticated(player);
    }
 
 }

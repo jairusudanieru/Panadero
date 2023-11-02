@@ -1,7 +1,7 @@
 package dev.jairusu.panadero.Events;
 
 import dev.jairusu.panadero.Methods.Configuration;
-import dev.jairusu.panadero.Methods.Utilities;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -17,7 +17,7 @@ public class LaunchPad implements Listener {
    @EventHandler
    public void onLaunchPads(PlayerInteractEvent event) {
       Player player = event.getPlayer();
-      if (!player.getWorld().equals(Utilities.lobbyWorld())) return;
+      if (!player.getWorld().equals(WorldGroups.lobbyWorld())) return;
 
       if (event.getAction() != Action.PHYSICAL) return;
       Block block = event.getClickedBlock();

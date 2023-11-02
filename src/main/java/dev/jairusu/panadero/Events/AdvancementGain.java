@@ -1,7 +1,7 @@
 package dev.jairusu.panadero.Events;
 
 import dev.jairusu.panadero.Methods.Configuration;
-import dev.jairusu.panadero.Methods.Utilities;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import io.papermc.paper.advancement.AdvancementDisplay;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -10,7 +10,6 @@ import org.bukkit.World;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
@@ -53,13 +52,13 @@ public class AdvancementGain implements Listener {
       List<String> allowedWorlds = Configuration.getStringList("advancements.allowed");
       if (!allowedWorlds.contains(playerWorld.getName())) return;
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-         if (!Utilities.worldGroups(playerWorld).contains(onlinePlayer.getWorld().getName())) continue;
+         if (!WorldGroups.worldGroups(playerWorld).contains(onlinePlayer.getWorld().getName())) continue;
          if (!allowedWorlds.contains(onlinePlayer.getWorld().getName())) continue;
          onlinePlayer.sendMessage(Configuration.text(fullMessage).append(displayName));
       }
    }
 
-   @EventHandler (priority = EventPriority.HIGHEST)
+   @EventHandler
    public void onPlayerAdvancement(PlayerAdvancementDoneEvent event) {
       Player player = event.getPlayer();
       int playerLevel = player.getLevel();

@@ -6,7 +6,6 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
@@ -22,20 +21,20 @@ public class ChangeWorld implements Listener {
 
       String playerWorldName = playerWorld.getName();
       String previousWorldName = previousWorld.getName();
-      List<String> worldGroup = Utilities.worldGroups(playerWorld);
-      List<String> previousGroup = Utilities.worldGroups(previousWorld);
+      List<String> worldGroup = WorldGroups.worldGroups(playerWorld);
+      List<String> previousGroup = WorldGroups.worldGroups(previousWorld);
 
       if (worldGroup.contains(playerWorldName) && !worldGroup.contains(previousWorldName)) {
-         if (playerWorld.equals(Utilities.lobbyWorld())) {
+         if (playerWorld.equals(WorldGroups.lobbyWorld())) {
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-            Utilities.giveItems(player);
+            InventoryGUI.giveItems(player);
          }
 
          for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if (!worldGroup.contains(onlinePlayer.getWorld().getName())) continue;
             player.showPlayer(Configuration.plugin, onlinePlayer);
             onlinePlayer.showPlayer(Configuration.plugin, player);
-            Utilities.sendJoinMessage(player, playerWorld, onlinePlayer);
+            MSGManager.sendJoinMessage(player, playerWorld, onlinePlayer);
          }
       }
 
@@ -44,7 +43,7 @@ public class ChangeWorld implements Listener {
             if (!previousGroup.contains(onlinePlayer.getWorld().getName())) continue;
             player.hidePlayer(Configuration.plugin, onlinePlayer);
             onlinePlayer.hidePlayer(Configuration.plugin, player);
-            Utilities.sendQuitMessage(player, previousWorld, onlinePlayer);
+            MSGManager.sendQuitMessage(player, previousWorld, onlinePlayer);
          }
       }
    }

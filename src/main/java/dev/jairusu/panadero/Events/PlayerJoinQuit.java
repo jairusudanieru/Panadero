@@ -18,10 +18,12 @@ public class PlayerJoinQuit implements Listener {
    public void onPlayerJoin(PlayerJoinEvent event) {
       event.joinMessage(null);
       Player player = event.getPlayer();
-      player.teleport(Utilities.authLocation());
-      for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-         player.hidePlayer(Configuration.plugin, onlinePlayer);
-         onlinePlayer.hidePlayer(Configuration.plugin, player);
+      if (!player.hasPlayedBefore() || player.hasPlayedBefore()) {
+         player.teleport(WorldGroups.authLocation());
+         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            player.hidePlayer(Configuration.plugin, onlinePlayer);
+            onlinePlayer.hidePlayer(Configuration.plugin, player);
+         }
       }
    }
 
@@ -29,7 +31,7 @@ public class PlayerJoinQuit implements Listener {
    public void onPlayerLogin(LoginEvent event) {
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
-      player.teleport(Utilities.spawnLocation());
+      player.teleport(WorldGroups.spawnLocation());
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          World onlineWorld = onlinePlayer.getWorld();
          if (!onlineWorld.equals(playerWorld)) continue;
@@ -38,7 +40,7 @@ public class PlayerJoinQuit implements Listener {
          onlinePlayer.showPlayer(Configuration.plugin, player);
       }
       player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-      Utilities.giveItems(player);
+      InventoryGUI.giveItems(player);
    }
 
    @EventHandler
@@ -47,7 +49,7 @@ public class PlayerJoinQuit implements Listener {
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-         Utilities.sendQuitMessage(player, playerWorld, onlinePlayer);
+         MSGManager.sendQuitMessage(player, playerWorld, onlinePlayer);
       }
    }
 
@@ -58,9 +60,9 @@ public class PlayerJoinQuit implements Listener {
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          player.hidePlayer(Configuration.plugin, onlinePlayer);
          onlinePlayer.hidePlayer(Configuration.plugin, player);
-         Utilities.sendLogoutMessage(player, playerWorld, onlinePlayer);
+         MSGManager.sendLogoutMessage(player, playerWorld, onlinePlayer);
       }
-      player.teleport(Utilities.authLocation());
+      player.teleport(WorldGroups.authLocation());
       player.getInventory().clear();
    }
 

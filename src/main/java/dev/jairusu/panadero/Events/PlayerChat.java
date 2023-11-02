@@ -1,6 +1,6 @@
 package dev.jairusu.panadero.Events;
 
-import dev.jairusu.panadero.Methods.Utilities;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -20,8 +20,8 @@ public class PlayerChat implements Listener {
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
       String message = LegacyComponentSerializer.legacyAmpersand().serialize(event.message());
-      Component fullMessage = Component.text("[" + player.getName() + "]: " + message);
-      List<String> worldGroup = Utilities.worldGroups(playerWorld);
+      Component fullMessage = Component.text("<" + player.getName() + "> " + message);
+      List<String> worldGroup = WorldGroups.worldGroups(playerWorld);
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          if (!worldGroup.contains(onlinePlayer.getWorld().getName())) continue;
          onlinePlayer.sendMessage(fullMessage);
