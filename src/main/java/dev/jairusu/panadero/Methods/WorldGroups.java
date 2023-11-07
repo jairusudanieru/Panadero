@@ -30,7 +30,7 @@ public class WorldGroups {
    }
 
    public static Location arenaLocation() {
-      Location location = Configuration.getLocation("location.spawnLocation");
+      Location location = Configuration.getLocation("location.arenaLocation");
       if (location == null) location = lobbyWorld().getSpawnLocation();
       return location;
    }
@@ -56,6 +56,13 @@ public class WorldGroups {
 
    public static World creativeWorld() {
       Location location = Configuration.getLocation("location.creativeLocation");
+      World world = location.getWorld();
+      if (world == null) world = Bukkit.getWorld("world");
+      return world;
+   }
+
+   public static World survivalWorld() {
+      Location location = Configuration.getLocation("location.survivalLocation");
       World world = location.getWorld();
       if (world == null) world = Bukkit.getWorld("world");
       return world;

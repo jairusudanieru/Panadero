@@ -29,9 +29,9 @@ public class PlayerCommand implements Listener {
       World playerWorld = player.getWorld();
 
       Collection<String> commands = event.getCommands();
-      if (!playerWorld.equals(WorldGroups.lobbyWorld())) return;
-      if (!playerWorld.equals(WorldGroups.creativeWorld())) return;
-      if (!WorldGroups.inArenaHub(player)) return;
+      if (playerWorld.equals(WorldGroups.lobbyWorld())) return;
+      if (playerWorld.equals(WorldGroups.creativeWorld())) return;
+      if (WorldGroups.inArenaHub(player)) return;
       commands.remove("suicide");
    }
 

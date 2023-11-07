@@ -21,9 +21,12 @@ public class PlayerRespawn implements Listener {
    @EventHandler
    public void onPlayerRespawn(PlayerRespawnEvent event) {
       Player player = event.getPlayer();
+      World playerWorld = player.getWorld();
+
       if (!Configuration.isAuthenticated(player)) return;
+      if (playerWorld.equals(WorldGroups.arenaWorld())) return;
       List<String> worlds = Arrays.asList("world","world_nether","world_the_end");
-      if (!worlds.contains(player.getWorld().getName())) return;
+      if (!worlds.contains(playerWorld.getName())) return;
       Location spawnLocation = player.getBedSpawnLocation();
 
       if (spawnLocation == null) {
