@@ -1,8 +1,6 @@
 package dev.jairusu.panadero.Commands;
 
-import dev.jairusu.panadero.Methods.Configuration;
 import dev.jairusu.panadero.Methods.MSGManager;
-import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,24 +22,24 @@ public class Reply implements TabCompleter, CommandExecutor {
    @Override
    public boolean onCommand (CommandSender sender, Command command, String label, String[] args) {
       if (!(sender instanceof Player)) {
-         sender.sendMessage(Configuration.text("You must be a player to use this command!"));
+         sender.sendMessage("You must be a player to use this command!");
          return true;
       }
 
       Player player = (Player) sender;
       if (!MSGManager.lastReceived.containsKey(player.getUniqueId()) || MSGManager.lastReceived.get(player.getUniqueId()) == null) {
-         sender.sendMessage(Configuration.text("You have no one to reply to!"));
+         sender.sendMessage("You have no one to reply to!");
          return true;
       }
 
       Player target = Bukkit.getPlayer(MSGManager.lastReceived.get(player.getUniqueId()));
       if (target == null) {
-         player.sendMessage(Configuration.text("Can't find that player!"));
+         player.sendMessage("Can't find that player!");
          return true;
       }
 
       if (args.length < 1) {
-         sender.sendMessage(Component.text("Invalid command usage!"));
+         sender.sendMessage("Invalid command usage!");
          return true;
       }
 

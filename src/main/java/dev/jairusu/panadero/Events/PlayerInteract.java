@@ -1,11 +1,12 @@
 package dev.jairusu.panadero.Events;
 
 import dev.jairusu.panadero.Methods.Configuration;
-import dev.jairusu.panadero.Methods.InventoryGUI;
+import dev.jairusu.panadero.Methods.SelectorGUI;
 import dev.jairusu.panadero.Methods.LobbyItem;
 import dev.jairusu.panadero.Methods.WorldGroups;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +29,7 @@ public class PlayerInteract implements Listener {
       if (!action.isRightClick() || item == null) return;
 
       if (item.equals(LobbyItem.COMPASS())) {
-         Inventory inventory = InventoryGUI.getInventory();
+         Inventory inventory = SelectorGUI.getInventory();
          player.openInventory(inventory);
       } else if (item.equals(LobbyItem.LIME_DYE())) {
          hideOthers(player);
@@ -44,7 +45,9 @@ public class PlayerInteract implements Listener {
    @EventHandler
    public void onPlayerTouch(PlayerInteractEvent event) {
       Player player = event.getPlayer();
-      if (!player.getWorld().equals(WorldGroups.lobbyWorld())) return;
+      World playerWorld = player.getWorld();
+
+      if (!playerWorld.equals(WorldGroups.lobbyWorld())) return;
       if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
       if (player.getGameMode().equals(GameMode.CREATIVE)) return;
       event.setCancelled(true);

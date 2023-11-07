@@ -18,44 +18,48 @@ public class Configuration {
 
    public static JavaPlugin plugin = JavaPlugin.getPlugin(Panadero.class);
 
+   public static int getInt(String key) {
+      return Configuration.plugin.getConfig().getInt(key);
+   }
+
    public static long getLong(String key) {
-      return plugin.getConfig().getLong(key);
+      return Configuration.plugin.getConfig().getLong(key);
    }
 
    public static double getDouble(String key) {
-      return plugin.getConfig().getDouble(key);
+      return Configuration.plugin.getConfig().getDouble(key);
    }
 
    public static String getString(String key) {
-      return plugin.getConfig().getString(key);
+      return Configuration.plugin.getConfig().getString(key);
    }
 
    public static ConfigurationSection getConfigSection(String key) {
-      return plugin.getConfig().getConfigurationSection(key);
+      return Configuration.plugin.getConfig().getConfigurationSection(key);
    }
    
    public static List<String> getStringList(String key) {
-      return plugin.getConfig().getStringList(key);
+      return Configuration.plugin.getConfig().getStringList(key);
    }
 
    public static Location getLocation(String key) {
-      return plugin.getConfig().getLocation(key);
+      return Configuration.plugin.getConfig().getLocation(key);
    }
 
    public static World getWorld(String key) {
-      String string = plugin.getConfig().getString(key);
+      String string = Configuration.plugin.getConfig().getString(key);
       if (string == null) return null;
       return Bukkit.getWorld(string);
    }
 
    public static Component text(String string) {
-      return MiniMessage.miniMessage().deserialize(string)
-              .decoration(TextDecoration.ITALIC, false);
+      MiniMessage miniMessage = MiniMessage.miniMessage();
+      return miniMessage.deserialize(string).decoration(TextDecoration.ITALIC,false);
    }
 
    public static void setLocation(String key, Location location) {
-      plugin.getConfig().set(key, location);
-      plugin.saveConfig();
+      Configuration.plugin.getConfig().set(key, location);
+      Configuration.plugin.saveConfig();
    }
 
    public static boolean isAuthenticated(Player player) {

@@ -49,8 +49,10 @@ public class AdvancementGain implements Listener {
 
       if (message == null) return;
       String fullMessage = playerName + message;
+
       List<String> allowedWorlds = Configuration.getStringList("advancements.allowed");
       if (!allowedWorlds.contains(playerWorld.getName())) return;
+
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          if (!WorldGroups.worldGroups(playerWorld).contains(onlinePlayer.getWorld().getName())) continue;
          if (!allowedWorlds.contains(onlinePlayer.getWorld().getName())) continue;
@@ -63,13 +65,17 @@ public class AdvancementGain implements Listener {
       Player player = event.getPlayer();
       int playerLevel = player.getLevel();
       float playerExp = player.getExp();
+
       Advancement advancement = event.getAdvancement();
       String playerWorld = player.getWorld().getName();
+
       List<String> allowedWorlds = Configuration.getStringList("advancements.allowed");
       if (allowedWorlds.contains(playerWorld)) return;
+
       for (String criteria : advancement.getCriteria()) {
          player.getAdvancementProgress(advancement).revokeCriteria(criteria);
       }
+
       Bukkit.getScheduler().runTaskLater(Configuration.plugin, () -> {
          int playerNewLevel = player.getLevel();
          float playerNewExp = player.getExp();

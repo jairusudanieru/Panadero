@@ -1,7 +1,6 @@
 package dev.jairusu.panadero.Commands;
 
 import dev.jairusu.panadero.Methods.Configuration;
-import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,15 +22,15 @@ public class Main implements TabCompleter, CommandExecutor {
    @Override
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
       if (args.length != 1) {
-         sender.sendMessage(Component.text("Invalid command usage!"));
+         sender.sendMessage("Invalid command usage!");
          return true;
       }
 
       if (args[0].equals("reload")) {
          Configuration.plugin.reloadConfig();
-         sender.sendMessage(Component.text("Configuration successfully reloaded"));
+         sender.sendMessage("Configuration successfully reloaded");
       } else if (args[0].equals("ping")) {
-         sender.sendMessage(Component.text("pong"));
+         sender.sendMessage("pong");
       }
       return true;
    }

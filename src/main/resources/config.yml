@@ -1,7 +1,8 @@
 
 config:
   afkTimeout: 300
-  lobbyWorld: spawn
+  bedRadius: 2
+  lobbyWorld: lobby
   voidYLevel: -64
   launchpadPower: 2.0
   launchpadHeight: 0.5
@@ -13,11 +14,16 @@ message:
   quitMessage: '<yellow>%player% left the game'
 
 location:
+  arenaLocation: location
   authLocation: location
   spawnLocation: location
   survivalLocation: location
   creativeLocation: location
   pvpArenaLocation: location
+
+arenaHub:
+  pos1: location
+  pos2: location
 
 advancements:
   allowed:

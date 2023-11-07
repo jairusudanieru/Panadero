@@ -18,7 +18,9 @@ public class CreeperExplode implements Listener {
    @EventHandler
    public void onCreeperDamage(EntityDamageByEntityEvent event) {
       EntityType damageFrom = event.getDamager().getType();
-      if (event.getEntityType().equals(EntityType.PLAYER) || !damageFrom.equals(EntityType.CREEPER)) return;
+      EntityType entityType = event.getEntityType();
+
+      if (entityType.equals(EntityType.PLAYER) || !damageFrom.equals(EntityType.CREEPER)) return;
       event.setCancelled(true);
    }
 

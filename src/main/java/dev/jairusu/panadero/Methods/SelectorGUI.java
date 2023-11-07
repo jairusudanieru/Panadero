@@ -2,10 +2,9 @@ package dev.jairusu.panadero.Methods;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-public class InventoryGUI {
+public class SelectorGUI {
 
    private static Inventory inventory;
 
@@ -19,13 +18,6 @@ public class InventoryGUI {
 
    public static Inventory getInventory() {
       return inventory;
-   }
-
-   public static void giveItems(Player player) {
-      player.getInventory().clear();
-      player.getInventory().setItem(8, LobbyItem.LIME_DYE());
-      player.getInventory().setItem(4, LobbyItem.COMPASS());
-      player.getInventory().setItem(0, LobbyItem.INFO_BOOK());
    }
 
 }

@@ -5,6 +5,7 @@ import com.mojang.authlib.properties.Property;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -59,38 +60,39 @@ public class LobbyItem {
    }
 
    public static ItemStack SURVIVAL() {
-      String url = "http://textures.minecraft.net/texture/438cf3f8e54afc3b3f91d20a49f324dca1486007fe545399055524c17941f4dc";
+      String texture = "438cf3f8e54afc3b3f91d20a49f324dca1486007fe545399055524c17941f4dc";
       String itemName = "<white>Survival";
       List<Component> lore = new ArrayList<>();
       lore.add(Configuration.text("<gray>Journey through the Wilderness"));
-      return getCustomHead(url, itemName, lore);
+      return getCustomHead(texture, itemName, lore);
    }
 
    public static ItemStack CREATIVE() {
-      String url = "http://textures.minecraft.net/texture/594c79f03e191b93477f7c19557408f7af4f9660e5dfb0687e3b8eb92fbd3ae1";
+      String texture = "594c79f03e191b93477f7c19557408f7af4f9660e5dfb0687e3b8eb92fbd3ae1";
       String itemName = "<white>Creative";
       List<Component> lore = new ArrayList<>();
       lore.add(Configuration.text("<gray>Virtual Place for Creativity"));
-      return getCustomHead(url, itemName, lore);
+      return getCustomHead(texture, itemName, lore);
    }
 
    public static ItemStack PVP_ARENA() {
-      String url = "http://textures.minecraft.net/texture/dd74d28d097e53db1112e390a7d4ff82df718866aea8f1650d946657a9369699";
+      String texture = "dd74d28d097e53db1112e390a7d4ff82df718866aea8f1650d946657a9369699";
       String itemName = "<white>PVP Arena";
       List<Component> lore = new ArrayList<>();
       lore.add(Configuration.text("<gray>Arena for the Strongest"));
-      return getCustomHead(url, itemName, lore);
+      return getCustomHead(texture, itemName, lore);
    }
 
    public static ItemStack getCustomHead(String texture, String itemName, List<Component> itemLore) {
       ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD, 1);
       if (texture == null || texture.isEmpty()) return itemStack;
+      String url = "http://textures.minecraft.net/texture/" + texture;
 
       SkullMeta headMeta = (SkullMeta) itemStack.getItemMeta();
       headMeta.displayName(Configuration.text(itemName));
       headMeta.lore(itemLore);
       GameProfile profile = new GameProfile(UUID.randomUUID(), null);
-      byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", texture).getBytes());
+      byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
       profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
 
       try {
@@ -103,6 +105,13 @@ public class LobbyItem {
 
       itemStack.setItemMeta(headMeta);
       return itemStack;
+   }
+
+   public static void give(Player player) {
+      player.getInventory().clear();
+      player.getInventory().setItem(8, LobbyItem.LIME_DYE());
+      player.getInventory().setItem(4, LobbyItem.COMPASS());
+      player.getInventory().setItem(0, LobbyItem.INFO_BOOK());
    }
 
 }

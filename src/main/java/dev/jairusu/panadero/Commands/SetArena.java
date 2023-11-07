@@ -1,6 +1,8 @@
 package dev.jairusu.panadero.Commands;
 
 import dev.jairusu.panadero.Methods.Configuration;
+import dev.jairusu.panadero.Methods.WorldGroups;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class SetLocation implements TabCompleter, CommandExecutor {
+public class SetArena implements TabCompleter, CommandExecutor {
 
    @Override
    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
       if (args.length != 1) return new ArrayList<>();
-      ConfigurationSection locationSection = Configuration.getConfigSection("location");
+      ConfigurationSection locationSection = Configuration.getConfigSection("arenaHub");
       if (locationSection == null) return new ArrayList<>();
       return new ArrayList<>(locationSection.getKeys(false));
    }
@@ -29,12 +31,16 @@ public class SetLocation implements TabCompleter, CommandExecutor {
          return true;
       }
 
+      Player player = (Player) sender;
+      World playerWorld = player.getWorld();
+      if (!playerWorld.equals(WorldGroups.arenaWorld())) return true;
+
       if (args.length != 1) {
          sender.sendMessage("Invalid command usage!");
          return true;
       }
 
-      ConfigurationSection locationSection = Configuration.getConfigSection("location");
+      ConfigurationSection locationSection = Configuration.getConfigSection("arenaHub");
       if (locationSection == null) return true;
       Set<String> locations = locationSection.getKeys(false);
       if (!locations.contains(args[0])) {
@@ -42,8 +48,7 @@ public class SetLocation implements TabCompleter, CommandExecutor {
          return true;
       }
 
-      Player player = (Player) sender;
-      Configuration.setLocation("location." + args[0], player.getLocation());
+      Configuration.setLocation("arenaHub." + args[0], player.getLocation());
       sender.sendMessage(args[0] + " successfully set");
       return true;
    }

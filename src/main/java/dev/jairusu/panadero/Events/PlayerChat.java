@@ -19,13 +19,16 @@ public class PlayerChat implements Listener {
       event.setCancelled(true);
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
+
       String message = LegacyComponentSerializer.legacyAmpersand().serialize(event.message());
       Component fullMessage = Component.text("<" + player.getName() + "> " + message);
+
       List<String> worldGroup = WorldGroups.worldGroups(playerWorld);
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          if (!worldGroup.contains(onlinePlayer.getWorld().getName())) continue;
          onlinePlayer.sendMessage(fullMessage);
       }
+      
       String consoleMessage = "[" + player.getName() + "]: " + message;
       Bukkit.getLogger().info(consoleMessage);
    }

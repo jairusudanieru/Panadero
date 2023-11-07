@@ -1,7 +1,7 @@
 package dev.jairusu.panadero.Events;
 
 import dev.jairusu.panadero.Methods.Configuration;
-import dev.jairusu.panadero.Methods.InventoryGUI;
+import dev.jairusu.panadero.Methods.SelectorGUI;
 import dev.jairusu.panadero.Methods.LobbyItem;
 import dev.jairusu.panadero.Methods.WorldGroups;
 import org.bukkit.Bukkit;
@@ -28,7 +28,7 @@ public class InventoryMove implements Listener {
       Player player = (Player) event.getWhoClicked();
       if (!player.getWorld().equals(WorldGroups.lobbyWorld())) return;
       if (player.getGameMode().equals(GameMode.CREATIVE)) return;
-      if (!event.getInventory().equals(InventoryGUI.getInventory())) return;
+      if (!event.getInventory().equals(SelectorGUI.getInventory())) return;
       event.setCancelled(true);
    }
 
@@ -53,7 +53,7 @@ public class InventoryMove implements Listener {
    @EventHandler
    public void onInventoryClick(InventoryClickEvent event) {
       Player player = (Player) event.getWhoClicked();
-      Inventory customInventory = InventoryGUI.getInventory();
+      Inventory customInventory = SelectorGUI.getInventory();
       Inventory playerInventory = player.getInventory();
 
       if (!player.getWorld().equals(WorldGroups.lobbyWorld())) return;

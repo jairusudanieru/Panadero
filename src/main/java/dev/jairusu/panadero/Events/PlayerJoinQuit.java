@@ -18,19 +18,22 @@ public class PlayerJoinQuit implements Listener {
    public void onPlayerJoin(PlayerJoinEvent event) {
       event.joinMessage(null);
       Player player = event.getPlayer();
-      if (!player.hasPlayedBefore() || player.hasPlayedBefore()) {
+
+      if (player.isDead()) player.spigot().respawn();
+      Bukkit.getScheduler().runTaskLater(Configuration.plugin, () -> {
          player.teleport(WorldGroups.authLocation());
          for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             player.hidePlayer(Configuration.plugin, onlinePlayer);
             onlinePlayer.hidePlayer(Configuration.plugin, player);
          }
-      }
+      }, 10L);
    }
 
    @EventHandler
    public void onPlayerLogin(LoginEvent event) {
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
+
       player.teleport(WorldGroups.spawnLocation());
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          World onlineWorld = onlinePlayer.getWorld();
@@ -39,8 +42,9 @@ public class PlayerJoinQuit implements Listener {
          if (onlinePlayer.getInventory().contains(LobbyItem.GRAY_DYE())) continue;
          onlinePlayer.showPlayer(Configuration.plugin, player);
       }
+
       player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-      InventoryGUI.giveItems(player);
+      LobbyItem.give(player);
    }
 
    @EventHandler
@@ -48,6 +52,7 @@ public class PlayerJoinQuit implements Listener {
       event.quitMessage(null);
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
+
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          MSGManager.sendQuitMessage(player, playerWorld, onlinePlayer);
       }
@@ -57,11 +62,13 @@ public class PlayerJoinQuit implements Listener {
    public void onPlayerLogout(LogoutEvent event) {
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
+
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          player.hidePlayer(Configuration.plugin, onlinePlayer);
          onlinePlayer.hidePlayer(Configuration.plugin, player);
          MSGManager.sendLogoutMessage(player, playerWorld, onlinePlayer);
       }
+
       player.teleport(WorldGroups.authLocation());
       player.getInventory().clear();
    }
@@ -74,6 +81,5 @@ public class PlayerJoinQuit implements Listener {
       AFKManager.afkStatusHashMap.remove(player);
       AFKManager.removeToAFKTeam(player, AFKManager.afkTeam());
    }
-
 
 }

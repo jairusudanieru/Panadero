@@ -8,8 +8,13 @@ description: Minecraft plugin exclusively made for PandesalSMP server.
 commands:
   afk:
     description: afk
+  arenastart:
+    description: arenastart
   panadero:
     description: panadero
+  setarena:
+    description: setarena
+    permission: op
   setlocation:
     description: setlocation
     permission: op
@@ -23,6 +28,8 @@ commands:
     aliases:
       - hub
       - lobby
+  suicide:
+    description: suicide
   whisper:
     description: whisper
     aliases:

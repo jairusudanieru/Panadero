@@ -27,7 +27,7 @@ public class ChangeWorld implements Listener {
       if (worldGroup.contains(playerWorldName) && !worldGroup.contains(previousWorldName)) {
          if (playerWorld.equals(WorldGroups.lobbyWorld())) {
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-            InventoryGUI.giveItems(player);
+            LobbyItem.give(player);
          }
 
          for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

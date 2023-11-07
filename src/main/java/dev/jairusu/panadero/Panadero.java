@@ -3,7 +3,7 @@ package dev.jairusu.panadero;
 import dev.jairusu.panadero.Commands.*;
 import dev.jairusu.panadero.Events.*;
 import dev.jairusu.panadero.Methods.AFKManager;
-import dev.jairusu.panadero.Methods.InventoryGUI;
+import dev.jairusu.panadero.Methods.SelectorGUI;
 import dev.jairusu.panadero.Methods.WorldGroups;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +20,7 @@ public final class Panadero extends JavaPlugin {
         saveDefaultConfig();
         registerEvents();
         registerCommands();
-        InventoryGUI.makeInventory();
+        SelectorGUI.makeInventory();
         AFKManager.checkPlayerStatus();
         WorldGroups.setDefaults();
     }
@@ -43,14 +43,19 @@ public final class Panadero extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerInteract(),this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinQuit(),this);
         Bukkit.getPluginManager().registerEvents(new PlayerMove(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerRespawn(),this);
+        Bukkit.getPluginManager().registerEvents(new SpawnEggs(),this);
     }
 
     public static void registerCommands() {
         registerCommand("afk", new AFK(), new AFK());
+        registerCommand("arenastart", new ArenaStart(), new ArenaStart());
         registerCommand("panadero", new Main(), new Main());
         registerCommand("reply", new Reply(), new Reply());
-        registerCommand("spawn", new Spawn(), new Spawn());
+        registerCommand("setarena", new SetArena(), new SetArena());
         registerCommand("setlocation", new SetLocation(), new SetLocation());
+        registerCommand("spawn", new Spawn(), new Spawn());
+        registerCommand("suicide", new Suicide(), new Suicide());
         registerCommand("whisper", new Whisper(), new Whisper());
     }
 

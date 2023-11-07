@@ -1,9 +1,7 @@
 package dev.jairusu.panadero.Commands;
 
-import dev.jairusu.panadero.Methods.Configuration;
 import dev.jairusu.panadero.Methods.MSGManager;
 import dev.jairusu.panadero.Methods.WorldGroups;
-import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -35,13 +33,13 @@ public class Whisper implements TabCompleter, CommandExecutor {
    @Override
    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
       if (args.length < 2) {
-         sender.sendMessage(Component.text("Invalid command usage!"));
+         sender.sendMessage("Invalid command usage!");
          return true;
       }
 
       Player target = Bukkit.getPlayerExact(args[0]);
       if (target == null) {
-         sender.sendMessage(Configuration.text("Can't find that player!"));
+         sender.sendMessage("Can't find that player!");
          return true;
       }
 

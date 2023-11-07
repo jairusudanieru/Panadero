@@ -9,16 +9,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.List;
+
 public class PlayerDeath implements Listener {
 
    @EventHandler
    public void onPlayerDeath(PlayerDeathEvent event) {
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
+
       Component deathMessage = event.deathMessage();
       if (deathMessage == null) return;
+
+      List<String> worldGroups = WorldGroups.worldGroups(playerWorld);
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-         if (!WorldGroups.worldGroups(playerWorld).contains(onlinePlayer.getWorld().getName())) continue;
+         if (!worldGroups.contains(onlinePlayer.getWorld().getName())) continue;
          onlinePlayer.sendMessage(deathMessage);
       }
    }
