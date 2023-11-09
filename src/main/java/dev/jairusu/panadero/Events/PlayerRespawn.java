@@ -58,10 +58,7 @@ public class PlayerRespawn implements Listener {
       World playerWorld = player.getWorld();
 
       if (!playerWorld.equals(WorldGroups.arenaWorld())) return;
-      Bukkit.getScheduler().runTaskLater(Configuration.plugin, () -> {
-         player.teleport(WorldGroups.arenaLocation());
-         player.getInventory().clear();
-      }, 1L);
+      Bukkit.getScheduler().runTaskLater(Configuration.plugin, () -> player.getInventory().clear(), 1L);
    }
 
 }

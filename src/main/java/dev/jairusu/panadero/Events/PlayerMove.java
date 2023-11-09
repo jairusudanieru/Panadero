@@ -17,7 +17,8 @@ public class PlayerMove implements Listener {
       double voidLevel = Configuration.getDouble("config.voidYLevel");
       Location spawnLocation = Configuration.getLocation("location.spawnLocation");
       if (spawnLocation == null) spawnLocation = player.getWorld().getSpawnLocation();
-      if (!player.getWorld().equals(WorldGroups.lobbyWorld())) return;
+      if (!player.getWorld().equals(WorldGroups.lobbyWorld()) &&
+         !player.getWorld().equals(WorldGroups.authWorld())) return;
       if (player.getLocation().getY() > voidLevel) return;
       player.setFallDistance(0);
       player.teleport(spawnLocation);

@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.List;
 public class ArenaStart implements TabCompleter, CommandExecutor {
 
    @Override
-   public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+   public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
       return new ArrayList<>();
    }
 
    @Override
-   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
       if (!(sender instanceof Player)) {
          sender.sendMessage("You must be a player to use this command!");
          return true;
@@ -30,7 +31,7 @@ public class ArenaStart implements TabCompleter, CommandExecutor {
       Player player = (Player) sender;
       World playerWorld = player.getWorld();
 
-      if (!playerWorld.equals(WorldGroups.arenaWorld()) || !WorldGroups.inArenaHub(player)) {
+      if (!playerWorld.equals(WorldGroups.arenaWorld())) {
          sender.sendMessage("Unknown command. Type \"/help\" for help.");
          return true;
       }

@@ -49,13 +49,11 @@ public class PlayerInteract implements Listener {
       Player player = event.getPlayer();
       World playerWorld = player.getWorld();
       Block clickedBlock = event.getClickedBlock();
-
-      if (WorldGroups.worldGroups(WorldGroups.survivalWorld()).contains(playerWorld.getName())) return;
-      if (WorldGroups.worldGroups(WorldGroups.creativeWorld()).contains(playerWorld.getName())) return;
-      if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+      Action action = event.getAction();
 
       if (player.getGameMode().equals(GameMode.CREATIVE)) return;
       if (playerWorld.equals(WorldGroups.arenaWorld())) {
+         if (action.equals(Action.PHYSICAL)) event.setCancelled(true);
          if (clickedBlock == null) return;
          for (String blocks : blockedBlocks()) {
             if (!clickedBlock.getType().name().contains(blocks)) continue;
@@ -64,6 +62,9 @@ public class PlayerInteract implements Listener {
          return;
       }
 
+      if (WorldGroups.worldGroups(WorldGroups.survivalWorld()).contains(playerWorld.getName())) return;
+      if (WorldGroups.worldGroups(WorldGroups.creativeWorld()).contains(playerWorld.getName())) return;
+      if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
       event.setCancelled(true);
    }
 

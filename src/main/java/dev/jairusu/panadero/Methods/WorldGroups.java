@@ -47,6 +47,13 @@ public class WorldGroups {
       return world;
    }
 
+   public static World authWorld() {
+      Location location = Configuration.getLocation("location.authLocation");
+      World world = location.getWorld();
+      if (world == null) world = Bukkit.getWorld("world");
+      return world;
+   }
+
    public static World arenaWorld() {
       Location location = Configuration.getLocation("location.pvpArenaLocation");
       World world = location.getWorld();

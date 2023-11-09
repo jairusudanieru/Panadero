@@ -32,7 +32,7 @@ public class LaunchPad implements Listener {
       if (!material.name().contains("PRESSURE_PLATE")) return;
       event.setCancelled(true);
 
-      if (!blockUnder.getBlock().getType().equals(Material.REDSTONE_BLOCK)) return;
+      if (!blockUnder.getBlock().getType().equals(Material.GOLD_BLOCK)) return;
       player.playSound(player.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1, 1);
       player.setVelocity(player.getLocation().getDirection().multiply(power).setY(height));
    }
