@@ -1,8 +1,10 @@
 package dev.jairusu.panadero.Commands;
 
 import dev.jairusu.panadero.Methods.Configuration;
+import dev.jairusu.panadero.Methods.WorldGroups;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -41,7 +43,13 @@ public class Spawn implements TabCompleter, CommandExecutor {
       }
 
       Player player = (Player) sender;
+      World playerWorld = player.getWorld();
+
       if (args.length == 0 || !player.isOp()) {
+         if (playerWorld.equals(WorldGroups.arenaWorld()) && !WorldGroups.inArenaHub(player)) {
+            player.setHealth(0);
+            player.spigot().respawn();
+         }
          player.teleport(location);
          return true;
       }

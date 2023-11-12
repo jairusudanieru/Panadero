@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class PlayerCommand implements Listener {
+public class CommandSend implements Listener {
 
    @EventHandler
    public void onArenaCommand(PlayerCommandSendEvent event) {

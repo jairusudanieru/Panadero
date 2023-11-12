@@ -1,6 +1,8 @@
 package dev.jairusu.panadero.Commands;
 
 import dev.jairusu.panadero.Methods.AFKManager;
+import dev.jairusu.panadero.Methods.WorldGroups;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,6 +24,14 @@ public class AFK implements TabCompleter, CommandExecutor {
    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
       if (!(sender instanceof Player)) return true;
       Player player = (Player) sender;
+      World playerWorld = player.getWorld();
+
+      List<String> worldGroups = WorldGroups.worldGroups(WorldGroups.survivalWorld());
+      if (!worldGroups.contains(playerWorld.getName())) {
+         sender.sendMessage("Unknown command. Type \"/help\" for help.");
+         return true;
+      }
+
       if (AFKManager.afkTeam().hasEntry(player.getName())) {
          AFKManager.removeToAFKTeam(player, AFKManager.afkTeam());
          return true;
