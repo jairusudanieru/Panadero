@@ -45,6 +45,7 @@ public final class Panadero extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinQuit(),this);
         Bukkit.getPluginManager().registerEvents(new PlayerMove(),this);
         Bukkit.getPluginManager().registerEvents(new PlayerRespawn(),this);
+        Bukkit.getPluginManager().registerEvents(new PlayerSleep(),this);
         Bukkit.getPluginManager().registerEvents(new SpawnEggs(),this);
     }
 

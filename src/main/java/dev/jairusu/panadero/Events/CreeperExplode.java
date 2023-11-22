@@ -20,7 +20,12 @@ public class CreeperExplode implements Listener {
       EntityType damageFrom = event.getDamager().getType();
       EntityType entityType = event.getEntityType();
 
-      if (entityType.equals(EntityType.PLAYER) || !damageFrom.equals(EntityType.CREEPER)) return;
+      boolean isArmorStand = entityType.equals(EntityType.ARMOR_STAND);
+      boolean isItemFrame = entityType.equals(EntityType.ITEM_FRAME);
+      boolean isMinecart = entityType.equals(EntityType.MINECART);
+
+      if (!damageFrom.equals(EntityType.CREEPER)) return;
+      if (!isArmorStand && !isItemFrame && !isMinecart) return;
       event.setCancelled(true);
    }
 
