@@ -48,5 +48,13 @@ public class ChangeWorld implements Listener {
       }
    }
 
+   @EventHandler
+   public void changeWorldAFK(PlayerChangedWorldEvent event) {
+      Player player = event.getPlayer();
+      AFKManager.lastMovementHashMap.remove(player);
+      if (!AFKManager.afkStatusHashMap.containsKey(player)) return;
+      AFKManager.afkStatusHashMap.remove(player);
+      AFKManager.removeToAFKTeam(player, AFKManager.afkTeam());
+   }
 
 }

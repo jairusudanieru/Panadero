@@ -40,7 +40,9 @@ public class PlayerSleep implements Listener {
 
    private void sendSleepMessage(Player player) {
       List<String> worldGroups = WorldGroups.worldGroups(player.getWorld());
-      String sleepMessage = "<yellow>" + player.getName() + " <gold>went to sleep. Sweet Dreams!";
+      String sleepMessage = Configuration.getString("message.sleepMessage");
+      if (sleepMessage == null || sleepMessage.isEmpty()) return;
+      sleepMessage = sleepMessage.replace("%player%",player.getName());
       for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
          if (!worldGroups.contains(onlinePlayer.getWorld().getName())) continue;
          onlinePlayer.sendMessage(Configuration.text(sleepMessage));
